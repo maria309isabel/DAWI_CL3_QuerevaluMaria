@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+</head>
+<body>
+<script type="text/javascript" th:src="@{/script/web/administracion/frmsala.js}"></script>
+<nav th:replace="~{layout::menu}"></nav>
+<div class="card">
+    <div class="card-header">
+        Listado de estados
+    </div>
+    <div class="card-body">
+        <button id="btnnuevo" type="button" class="btn btn-info">
+            <i class="bi bi-balloon"> Agregar</i>
+        </button>
+
+        <table id="tblsala" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Cant Asientos</th>
+                <th scope="col">Estado</th>
+                <th>Actualizar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sala: ${listadosalas}">
+                <td th:text="${sala.idsala}"></td>
+                <td th:text="${sala.descsala}"></td>
+                <td th:text="${sala.asientos}"></td>
+                <td th:text="${sala.estado.descestado}"></td>
+                <td>
+                    <button type="button" class="btn btn-info btnactualizar"
+                            th:data-idsala="${sala.idsala}"
+                            th:data-descsala="${sala.descsala}"
+                            th:data-asientos="${sala.asientos}"
+                            th:data-idestado="${sala.estado.idestado}"
+                    >
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal AGREGAR Y ACTUALIZAR-->
+<div class="modal fade" id="modalsala" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mantenimiento Sala</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="txtdescripcion" class="form-label">Descripción:</label>
+                <input type="text" class="form-control" id="txtdescripcion" placeholder="Ingrese descripción">
+
+                <label for="txtasientos" class="form-label">Nro de asientos</label>
+                <input type="text" class="form-control" id="txtasientos" placeholder="Ingrese la cantidad de asientos">
+
+                <label for="cboestado" class="form-label">Estado</label>
+                <select id="cboestado" class="form-select" aria-label="Default select example">
+                    <option selected>Selecciona un estado</option>
+                </select>
+                <input type="hidden" id="hddidsala" value="0">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-lg"></i> Cerrar</button>
+                <button id="btnguardar" onclick="click" type="button" class="btn btn-primary"><i class="bi bi-save"></i> Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
